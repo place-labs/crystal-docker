@@ -14,8 +14,8 @@ describe Docker::Api::Client do
   end
 
   it "supports specifying a custom API version" do
-    versioned_client = Docker::Api::Client.new version: "v1.23"
-    WebMock.stub :any, "#{versioned_client.client.host}/#{versioned_client.version}/foo"
+    versioned_client = Docker::Api::Client.new api_version: "v1.23"
+    WebMock.stub :any, "#{versioned_client.client.host}/#{versioned_client.api_version}/foo"
     response = versioned_client.get "/foo"
     response.status_code.should eq(200)
   end
@@ -26,13 +26,6 @@ describe Docker::Api::Client do
     end
     expect_raises(Docker::ApiError, "This is an error") do
       client.get "/foo"
-    end
-  end
-
-  describe "#ping" do
-    it "supports base ping query" do
-      WebMock.stub(:get, "#{client.client.host}/_ping").to_return body: "OK"
-      client.ping.should be_true
     end
   end
 end
