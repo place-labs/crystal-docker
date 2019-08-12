@@ -1,5 +1,9 @@
 # crystal-docker
 
+[![GitHub release](https://img.shields.io/github/release/aca-labs/crystal-docker.svg)](https://github.com/aca-labs/crystal-docker/releases)
+[![Build Status](https://travis-ci.com/aca-labs/crystal-docker.svg?branch=master)](https://travis-ci.com/aca-labs/crystal-docker)
+[![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://aca-labs.github.io/crystal-docker/)
+
 Docker Engine API wrapper. Provides typed interaction with the [Docker Engine API](https://docs.docker.com/engine/api/latest/).
 
 Client structure has been designed to mirror API provided by the [official python SDK](https://docker-py.readthedocs.io/en/stable/client.html).
@@ -18,11 +22,7 @@ Client structure has been designed to mirror API provided by the [official pytho
 
 ## Usage
 
-```crystal
-require "crystal-docker"
-```
-
-TODO: Write usage instructions here
+Read [the docs](https://aca-labs.github.io/crystal-docker/).
 
 ## Contributing
 
