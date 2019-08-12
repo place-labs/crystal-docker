@@ -4,6 +4,7 @@ require "json"
 require "../../core_ext/http/client"
 require "../../core_ext/openssl/**"
 require "../errors"
+require "./containers"
 require "./daemon"
 
 # Low-level wrapper for the Docker Engine API.
@@ -41,5 +42,6 @@ class Docker::Api::Client
     end
   {% end %}
 
+  include Containers
   include Daemon
 end
