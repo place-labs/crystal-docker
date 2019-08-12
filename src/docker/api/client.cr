@@ -12,7 +12,10 @@ class Docker::Api::Client
 
   private getter client : HTTP::Client
 
-  def initialize(base_url = DEFAULT_URL)
+  # API version in use, defaults to latest if `nil`
+  getter version : String?
+
+  def initialize(base_url = DEFAULT_URL, @version = nil)
     uri = URI.parse base_url
 
     case uri.scheme
@@ -30,6 +33,7 @@ class Docker::Api::Client
     # unsuccessful.
     # ```
     def {{method.id}}(path, headers : HTTP::Headers? = nil, body : HTTP::Client::BodyType? = nil)
+      path = "/#{version}#{path}" unless version.nil?
       response = client.{{method.id}} path, headers, body
       raise Docker::ApiError.from_response(response) unless response.success?
       response
