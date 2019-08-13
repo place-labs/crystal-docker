@@ -51,64 +51,44 @@ struct Docker::Api::Models::Container
 
   struct HostConfig
     JSON.mapping({
-      maxium_iops:  {setter: false, key: "MaximumIOps", type: Int32},
-      maxium_iobps: {setter: false, key: "MaximumIOBps", type: Int32},
-      blkio_weight: {setter: false, key: "BlkioWeight", type: Int32},
+      maxium_iops:             {setter: false, key: "MaximumIOps", type: Int32?},
+      maxium_iobps:            {setter: false, key: "MaximumIOBps", type: Int32?},
+      blkio_weight:            {setter: false, key: "BlkioWeight", type: Int32},
+      blkio_weight_device:     {setter: false, key: "BlkioWeightDevice", type: Array(JSON::Any)},
+      blkio_device_read_bps:   {setter: false, key: "BlkioDeviceReadBps", type: Array(JSON::Any)?},
+      blkio_device_write_bps:  {setter: false, key: "BlkioDeviceWriteBps", type: Array(JSON::Any)?},
+      blkio_device_read_iops:  {setter: false, key: "BlkioDeviceReadIOps", type: Array(JSON::Any)?},
+      blkio_device_write_iops: {setter: false, key: "BlkioDeviceWriteIOps", type: Array(JSON::Any)?},
+      container_id_file:       {setter: false, key: "ContainerIDFile", type: String},
+      cpuset_cpus:             {setter: false, key: "CpusetCpus", type: String},
+      cpuset_mems:             {setter: false, key: "CpusetMems", type: String},
+      cpu_percent:             {setter: false, key: "CpuPercent", type: Int32},
+      cpu_shares:              {setter: false, key: "CpuShares", type: Int32},
+      cpu_period:              {setter: false, key: "CpuPeriod", type: Int32},
+      cpu_realtime_period:     {setter: false, key: "CpuRealtimePeriod", type: Int32},
+      cpu_runtime_period:      {setter: false, key: "CpuRealtimeRuntime", type: Int32},
+      devices:                 {setter: false, key: "Devices", type: Array(JSON::Any)},
+      ipc_mode:                {setter: false, key: "IpcMode", type: String},
+      lxc_conf:                {setter: false, key: "LxcConf", type: Array(JSON::Any)},
+      memory:                  {setter: false, key: "Memory", type: Int32},
+      memory_swap:             {setter: false, key: "MemorySwap", type: Int32},
+      memory_reservation:      {setter: false, key: "MemoryReservation", type: Int32},
+      kernel_memory:           {setter: false, key: "KernelMemory", type: Int32},
+      oom_kill_disable:        {setter: false, key: "OomKillDisable", type: Bool},
+      joom_score_adj:          {setter: false, key: "OomScoreAdj", type: Int32},
+      network_mode:            {setter: false, key: "NetworkMode", type: String},
+      pid_mode:                {setter: false, key: "PidMode", type: String},
+      post_bindings:           {setter: false, key: "PortBindings", type: JSON::Any},
+      privileged:              {setter: false, key: "Privileged", type: Bool},
+      readonly_rootfs:         {setter: false, key: "ReadonlyRootfs", type: Bool},
+      publish_all_ports:       {setter: false, key: "PublishAllPorts", type: Bool},
+      restart_policy:          {setter: false, key: "RestartPolicy", type: JSON::Any},
+      log_config:              {setter: false, key: "LogConfig", type: JSON::Any},
+      sysctls:                 {setter: false, key: "Sysctls", type: JSON::Any},
+      ulimits:                 {setter: false, key: "Ulimits", type: Array(JSON::Any)},
+      volume_driver:           {setter: false, key: "VolumeDriver", type: String},
+      shm_size:                {setter: false, key: "ShmSize", type: Int32},
     })
-    #     "BlkioWeightDevice": [
-    #       {}
-    #     ],
-    #     "BlkioDeviceReadBps": [
-    #       {}
-    #     ],
-    #     "BlkioDeviceWriteBps": [
-    #       {}
-    #     ],
-    #     "BlkioDeviceReadIOps": [
-    #       {}
-    #     ],
-    #     "BlkioDeviceWriteIOps": [
-    #       {}
-    #     ],
-    #     "ContainerIDFile": "",
-    #     "CpusetCpus": "",
-    #     "CpusetMems": "",
-    #     "CpuPercent": 80,
-    #     "CpuShares": 0,
-    #     "CpuPeriod": 100000,
-    #     "CpuRealtimePeriod": 1000000,
-    #     "CpuRealtimeRuntime": 10000,
-    #     "Devices": [],
-    #     "IpcMode": "",
-    #     "LxcConf": [],
-    #     "Memory": 0,
-    #     "MemorySwap": 0,
-    #     "MemoryReservation": 0,
-    #     "KernelMemory": 0,
-    #     "OomKillDisable": false,
-    #     "OomScoreAdj": 500,
-    #     "NetworkMode": "bridge",
-    #     "PidMode": "",
-    #     "PortBindings": {},
-    #     "Privileged": false,
-    #     "ReadonlyRootfs": false,
-    #     "PublishAllPorts": false,
-    #     "RestartPolicy": {
-    #       "MaximumRetryCount": 2,
-    #       "Name": "on-failure"
-    #     },
-    #     "LogConfig": {
-    #       "Type": "json-file"
-    #     },
-    #     "Sysctls": {
-    #       "net.ipv4.ip_forward": "1"
-    #     },
-    #     "Ulimits": [
-    #       {}
-    #     ],
-    #     "VolumeDriver": "",
-    #     "ShmSize": 67108864
-    #   },
   end
 
   struct NetworkSettings
