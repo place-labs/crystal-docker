@@ -78,7 +78,7 @@ struct Docker::Api::Models::Container
       joom_score_adj:          {setter: false, key: "OomScoreAdj", type: Int32},
       network_mode:            {setter: false, key: "NetworkMode", type: String},
       pid_mode:                {setter: false, key: "PidMode", type: String},
-      post_bindings:           {setter: false, key: "PortBindings", type: JSON::Any},
+      port_bindings:           {setter: false, key: "PortBindings", type: JSON::Any},
       privileged:              {setter: false, key: "Privileged", type: Bool},
       readonly_rootfs:         {setter: false, key: "ReadonlyRootfs", type: Bool},
       publish_all_ports:       {setter: false, key: "PublishAllPorts", type: Bool},
