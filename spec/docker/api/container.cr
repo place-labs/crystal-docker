@@ -169,7 +169,8 @@ describe Docker::Api::Containers do
           }
         ]
       JSON
-      WebMock.stub(:get, "#{client.client.host}/containers/json")
+      WebMock
+        .stub(:get, "#{client.client.host}/containers/json")
         .with(query: {"all" => "true"})
         .to_return(body: response)
       containers = client.containers all: true
@@ -178,7 +179,8 @@ describe Docker::Api::Containers do
 
   describe "#create_container" do
     it "correctly builds requests" do
-      WebMock.stub(:post, "#{client.client.host}/containers/create")
+      WebMock
+        .stub(:post, "#{client.client.host}/containers/create")
         .with(
           query: {"name" => "test"},
           body: {
@@ -203,7 +205,9 @@ describe Docker::Api::Containers do
   describe "#inspect_container" do
     it "inspects container objects" do
       id = "abc123"
-      WebMock.stub(:get, "#{client.client.host}/containers/#{id}/json").to_return(body: <<-JSON
+      WebMock
+        .stub(:get, "#{client.client.host}/containers/#{id}/json")
+        .to_return(body: <<-JSON
         {
           "AppArmorProfile": "",
           "Args": [
@@ -373,9 +377,48 @@ describe Docker::Api::Containers do
           ]
         }
       JSON
-      )
+        )
       container = client.inspect_container id
       container.path.should eq("/bin/sh")
+    end
+  end
+
+  {% for action in %w(start stop restart kill pause unpause) %}
+    describe {{action}} do
+      it "correctly builds requests" do
+        id = "test"
+        WebMock
+          .stub(:post, "#{client.client.host}/containers/#{id}/{{action.id}}")
+          .to_return(status: 204)
+        client.{{action.id}} "test"
+      end
+    end
+  {% end %}
+
+  describe "#wait" do
+    it "correctly builds requests" do
+      id = "test"
+      WebMock
+        .stub(:post, "#{client.client.host}/containers/#{id}/wait")
+        .to_return(body: <<-JSON
+         {
+           "StatusCode": 0,
+           "Error": {
+             "Message": "foo"
+           }
+         }
+         JSON
+        )
+      response = client.wait "test"
+      response.error.message.should eq("foo")
+    end
+  end
+
+  describe "#remove_container" do
+    it "correctly builds requests" do
+      id = "test"
+      WebMock.stub(:delete, "#{client.client.host}/containers/#{id}")
+      client.remove_container "test"
     end
   end
 end
