@@ -5,7 +5,7 @@ struct Docker::Api::Models::Container
     app_armor_profile: {setter: false, key: "AppArmorProfile", type: String},
     args:              {setter: false, key: "Args", type: Array(String)},
     config:            {setter: false, key: "Config", type: Config},
-    created: {setter: false, key: "Created", type: Time},
+    created:           {setter: false, key: "Created", type: Time},
     driver:            {setter: false, key: "Driver", type: String},
     exec_ids:          {setter: false, key: "ExecIDs", type: Array(String)?},
     host_config:       {setter: false, key: "HostConfig", type: HostConfig},
