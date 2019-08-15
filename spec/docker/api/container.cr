@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Docker::Api::Daemon do
+describe Docker::Api::Containers do
   client = Docker::Api::Client.new
 
   describe "#inspect_container" do
