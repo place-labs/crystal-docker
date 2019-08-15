@@ -5,7 +5,7 @@ struct Docker::Api::Models::Container
     app_armor_profile: {setter: false, key: "AppArmorProfile", type: String},
     args:              {setter: false, key: "Args", type: Array(String)},
     config:            {setter: false, key: "Config", type: Config},
-    created:           {setter: false, key: "Created", type: String},
+    created: {setter: false, key: "Created", type: Time},
     driver:            {setter: false, key: "Driver", type: String},
     exec_ids:          {setter: false, key: "ExecIDs", type: Array(String)?},
     host_config:       {setter: false, key: "HostConfig", type: HostConfig},
@@ -129,14 +129,14 @@ struct Docker::Api::Models::Container
     JSON.mapping({
       error:       {setter: false, key: "Error", type: String},
       exit_code:   {setter: false, key: "ExitCode", type: Int32},
-      finished_at: {setter: false, key: "FinishedAt", type: String},
+      finished_at: {setter: false, key: "FinishedAt", type: Time},
       oom_killed:  {setter: false, key: "OOMKilled", type: Bool},
       dead:        {setter: false, key: "Dead", type: Bool},
       paused:      {setter: false, key: "Paused", type: Bool},
       pid:         {setter: false, key: "Pid", type: Int32},
       restarting:  {setter: false, key: "Restarting", type: Bool},
       running:     {setter: false, key: "Running", type: Bool},
-      started_at:  {setter: false, key: "StartedAt", type: String},
+      started_at:  {setter: false, key: "StartedAt", type: Time},
       status:      {setter: false, key: "Status", type: String},
     })
   end

@@ -10,7 +10,7 @@ struct Docker::Api::Models::Version
     arch:            {setter: false, key: "Arch", type: String},
     api_version:     {setter: false, key: "ApiVersion", type: String},
     min_api_version: {setter: false, key: "MinAPIVersion", type: String},
-    build_time:      {setter: false, key: "BuildTime", type: String},
+    build_time:      {setter: false, key: "BuildTime", type: Time},
     experimental:    {setter: false, key: "Experimental", type: Bool},
   })
 end
