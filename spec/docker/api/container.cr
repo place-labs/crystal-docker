@@ -176,6 +176,30 @@ describe Docker::Api::Containers do
     end
   end
 
+  describe "#create_container" do
+    it "correctly builds requests" do
+      WebMock.stub(:post, "#{client.client.host}/containers/create")
+        .with(
+          query: {"name" => "test"},
+          body: {
+            "Image" => "aca-labs/crystal-docker",
+            "Env"   => ["FOO=bar", "BAZ=quux"],
+          }.to_json
+        ).to_return(body: <<-JSON
+          {
+            "Id": "e90e34656806",
+            "Warnings": []
+          }
+          JSON
+        )
+      response = client.create_container("test",
+        image: "aca-labs/crystal-docker",
+        env: ["FOO=bar", "BAZ=quux"]
+      )
+      response.id.should eq("e90e34656806")
+    end
+  end
+
   describe "#inspect_container" do
     it "inspects container objects" do
       id = "abc123"
