@@ -11,7 +11,7 @@ require "./daemon"
 class Docker::Api::Client
   DEFAULT_URL = "unix:///var/run/docker.sock"
 
-  # :no_doc
+  # :no_doc:
   getter client : HTTP::Client
 
   # API version in use, defaults to latest if `nil`
