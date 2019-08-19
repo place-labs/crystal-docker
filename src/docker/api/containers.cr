@@ -44,7 +44,7 @@ module Docker::Api::Containers
   # Similar to the `docker start` command, but doesn’t support attach options.
   def start(id : String)
     post "/containers/#{id}/start"
-    self
+    nil
   end
 
   # Stops a container.
@@ -55,7 +55,7 @@ module Docker::Api::Containers
       param.add "timeout", timeout unless timeout.nil?
     end
     post "/containers/#{id}/stop?#{params}"
-    self
+    nil
   end
 
   # Restart a container.
@@ -66,7 +66,7 @@ module Docker::Api::Containers
       param.add "timeout", timeout unless timeout.nil?
     end
     post "/containers/#{id}/restart?#{params}"
-    self
+    nil
   end
 
   # Send a POSIX signal to a container, defaulting to killing to the container.
@@ -77,7 +77,7 @@ module Docker::Api::Containers
       param.add "signal", signal unless signal.nil?
     end
     post "/containers/#{id}/kill?#{params}"
-    self
+    nil
   end
 
   # Change various configuration options of a container without having to recreate it.
@@ -85,7 +85,7 @@ module Docker::Api::Containers
   # Similar to `docker update` command.
   def update(id : String, **props)
     post "/containers/#{id}/update", body: props.camelcase_keys.to_json
-    self
+    nil
   end
 
   # Rename a container.
@@ -96,7 +96,7 @@ module Docker::Api::Containers
       param.add "name", name
     end
     post "/containers/#{id}/rename?#{params}"
-    self
+    nil
   end
 
   # Pauses all processes within a container.
@@ -104,7 +104,7 @@ module Docker::Api::Containers
   # Similar to `docker pause` command.
   def pause(id : String)
     post "/containers/#{id}/pause"
-    self
+    nil
   end
 
   # Resume a container which has been paused.
@@ -112,7 +112,7 @@ module Docker::Api::Containers
   # Similar to `docker unpause` command.
   def unpause(id : String)
     post "/containers/#{id}/unpause"
-    self
+    nil
   end
 
   # Block until a container stops, then returns the exit code.
@@ -136,6 +136,6 @@ module Docker::Api::Containers
       param.add "link", link unless link.nil?
     end
     delete "/containers/#{id}?#{params}"
-    self
+    nil
   end
 end
