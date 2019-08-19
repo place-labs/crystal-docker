@@ -3,6 +3,7 @@ require "http/client"
 require "json"
 require "../../core_ext/http/client"
 require "../../core_ext/openssl/**"
+require "../../core_ext/named_tuple/camelcase_keys"
 require "../errors"
 require "./containers"
 require "./daemon"
@@ -41,14 +42,23 @@ class Docker::Api::ApiClient
     # unsuccessful.
     # ```
     def {{method.id}}(path, headers : HTTP::Headers? = nil, body : HTTP::Client::BodyType? = nil)
-      unless body.nil?
-        headers ||= HTTP::Headers.new
-        headers["Content-Type"] = "application/json"
-      end
       path = "/#{api_version}#{path}" unless api_version.nil?
       response = connection.{{method.id}} path, headers, body
       raise Docker::ApiError.from_response(response) unless response.success?
       response
+    end
+
+    # :ditto:
+    def {{method.id}}(path, body : NamedTuple)
+      headers = HTTP::Headers.new
+      headers["Content-Type"] = "application/json"
+      {{method.id}} path, headers, body.camelcase_keys.to_json
+    end
+
+    # :ditto:
+    def {{method.id}}(path, headers : HTTP::Headers, body : NamedTuple)
+      headers["Content-Type"] = "application/json"
+      {{method.id}} path, headers, body.camelcase_keys.to_json
     end
   {% end %}
 

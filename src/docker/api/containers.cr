@@ -1,5 +1,4 @@
 require "json"
-require "../../core_ext/named_tuple/camelcase_keys"
 require "./models/container"
 require "./models/create_container_response"
 require "./models/container_summary"
@@ -28,7 +27,7 @@ module Docker::Api::Containers
     params = HTTP::Params.build do |param|
       param.add "name", name unless name.nil?
     end
-    response = post "/containers/create?#{params}", body: props.camelcase_keys.to_json
+    response = post "/containers/create?#{params}", body: props
     Models::CreateContainerResponse.from_json response.body
   end
 
@@ -85,7 +84,7 @@ module Docker::Api::Containers
   #
   # Similar to `docker update` command.
   def update(id : String, **props)
-    post "/containers/#{id}/update", body: props.camelcase_keys.to_json
+    post "/containers/#{id}/update", body: props
     nil
   end
 
