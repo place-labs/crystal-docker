@@ -41,6 +41,10 @@ class Docker::Api::ApiClient
     # unsuccessful.
     # ```
     def {{method.id}}(path, headers : HTTP::Headers? = nil, body : HTTP::Client::BodyType? = nil)
+      unless body.nil?
+        headers ||= HTTP::Headers.new
+        headers["Content-Type"] = "application/json"
+      end
       path = "/#{api_version}#{path}" unless api_version.nil?
       response = connection.{{method.id}} path, headers, body
       raise Docker::ApiError.from_response(response) unless response.success?
