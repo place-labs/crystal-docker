@@ -1,7 +1,7 @@
-require "../client_wrapper"
+require "../api_client_wrapper"
 
 class Docker::Client::Containers
-  include Docker::ClientWrapper
+  include Docker::ApiClientWrapper
 
   def create
 
