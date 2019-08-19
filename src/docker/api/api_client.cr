@@ -9,10 +9,10 @@ require "./daemon"
 
 # Low-level wrapper for the Docker Engine API.
 #
-# Each method on maps one-to-one with a REST API endpoint, and returns the response that the API
-# responds with. It's possible to use `ApiClient` directly if you require the extra flexibility,
-# however in most cases the abstractions provided by the higher-level `Docker::Client` may be the
-# better choice.
+# Each method on maps one-to-one with a REST API endpoint, and either returns the response that the
+# API responds with or raises an `Docker::ApiError`. It's possible to use `ApiClient` directly if
+# you require the extra flexibility, however in most cases the abstractions provided by the
+# higher-level `Docker::Client` may be the better choice.
 class Docker::Api::ApiClient
   DEFAULT_URL = "unix:///var/run/docker.sock"
 

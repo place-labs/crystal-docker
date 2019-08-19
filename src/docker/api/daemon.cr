@@ -1,5 +1,6 @@
 require "./models/version"
 
+# API queries for interaction with the underlying Docker daemon.
 module Docker::Api::Daemon
   # Checks connectivity with the underlying API.
   #
@@ -8,6 +9,9 @@ module Docker::Api::Daemon
     get("/_ping").body == "OK"
   end
 
+  # Returns version information from the server.
+  #
+  # Similar to the `docker version` command.
   def version
     response = get "/version"
     Models::Version.from_json(response.body)

@@ -4,8 +4,11 @@ require "./models/create_container_response"
 require "./models/container_summary"
 require "./models/wait_response"
 
+# API queries for container interaction.
 module Docker::Api::Containers
-  # List containers. Similar to the docker ps command.
+  # List containers.
+  #
+  # Similar to the `docker ps` command.
   def containers(all : Bool? = nil, limit : Int? = nil, size : Bool? = nil, filters : String? = nil)
     params = HTTP::Params.build do |param|
       param.add "all", all.to_s unless all.nil?
@@ -17,6 +20,9 @@ module Docker::Api::Containers
     Array(Models::ContainerSummary).from_json response.body
   end
 
+  # Creates a container.
+  #
+  # Parameters are similar to those for the `docker run` command.
   def create_container(name : String? = nil, **props)
     params = HTTP::Params.build do |param|
       param.add "name", name unless name.nil?
@@ -25,17 +31,25 @@ module Docker::Api::Containers
     Models::CreateContainerResponse.from_json response.body
   end
 
-  # Identical to the docker inspect command, but only for containers.
+  # Query container info.
+  #
+  # Identical to the `docker inspect` command, but only for containers.
   def inspect_container(id : String)
     response = get "/containers/#{id}/json"
     Models::Container.from_json response.body
   end
 
+  # Start a container.
+  #
+  # Similar to the `docker start` command, but doesn’t support attach options.
   def start(id : String)
     post "/containers/#{id}/start"
     self
   end
 
+  # Stops a container.
+  #
+  # Similar to the `docker stop` command.
   def stop(id : String, timeout : Int? = nil)
     params = HTTP::Params.build do |param|
       param.add "timeout", timeout unless timeout.nil?
@@ -44,6 +58,9 @@ module Docker::Api::Containers
     self
   end
 
+  # Restart a container.
+  #
+  # Similar to the `docker restart` command.
   def restart(id : String, timeout : Int? = nil)
     params = HTTP::Params.build do |param|
       param.add "timeout", timeout unless timeout.nil?
@@ -53,6 +70,8 @@ module Docker::Api::Containers
   end
 
   # Send a POSIX signal to a container, defaulting to killing to the container.
+  #
+  # Similar to the `docker kill` command.
   def kill(id : String, signal : String? = nil)
     params = HTTP::Params.build do |param|
       param.add "signal", signal unless signal.nil?
@@ -62,11 +81,16 @@ module Docker::Api::Containers
   end
 
   # Change various configuration options of a container without having to recreate it.
+  #
+  # Similar to `docker update` command.
   def update(id : String, **props)
     post "/containers/#{id}/update", body: props.camelcase_keys.to_json
     self
   end
 
+  # Rename a container.
+  #
+  # Similar to the `docker rename` command.
   def rename(id : String, name : String)
     params = HTTP::Params.build do |param|
       param.add "name", name
@@ -75,23 +99,25 @@ module Docker::Api::Containers
     self
   end
 
-  # Use the cgroups freezer to suspend all processes in a container.
+  # Pauses all processes within a container.
   #
-  # Traditionally, when suspending a process the `SIGSTOP` signal is used, which is observable by the
-  # process being suspended. With the cgroups freezer the process is unaware, and unable to capture,
-  # that it is being suspended, and subsequently resumed.
+  # Similar to `docker pause` command.
   def pause(id : String)
     post "/containers/#{id}/pause"
     self
   end
 
   # Resume a container which has been paused.
+  #
+  # Similar to `docker unpause` command.
   def unpause(id : String)
     post "/containers/#{id}/unpause"
     self
   end
 
   # Block until a container stops, then returns the exit code.
+  #
+  # Similar to `docker wait` command.
   def wait(id : String, condition : String? = nil)
     params = HTTP::Params.build do |param|
       param.add "condition", condition unless condition.nil?
@@ -100,6 +126,9 @@ module Docker::Api::Containers
     Models::WaitResponse.from_json response.body
   end
 
+  # Remove a container.
+  #
+  # Similar to the `docker rm` command.
   def remove_container(id : String, v : Bool? = nil, force : Bool? = nil, link : Bool? = nil)
     params = HTTP::Params.build do |param|
       param.add "v", v unless v.nil?
