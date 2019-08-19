@@ -1,4 +1,5 @@
 require "json"
+require "../../core_ext/named_tuple/camelcase_keys"
 require "./models/container"
 require "./models/create_container_response"
 require "./models/container_summary"
