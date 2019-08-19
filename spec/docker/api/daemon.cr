@@ -1,18 +1,18 @@
 require "../../spec_helper"
 
 describe Docker::Api::Daemon do
-  client = Docker::Api::Client.new
+  client = Docker::Api::ApiClient.new
 
   describe "#ping" do
     it "supports base ping query" do
-      WebMock.stub(:get, "#{client.client.host}/_ping").to_return body: "OK"
+      WebMock.stub(:get, "#{client.connection.host}/_ping").to_return body: "OK"
       client.ping.should be_true
     end
   end
 
   describe "#version" do
     it "supports version queries" do
-      WebMock.stub(:get, "#{client.client.host}/version").to_return(body: <<-JSON
+      WebMock.stub(:get, "#{client.connection.host}/version").to_return(body: <<-JSON
         {
             "Version": "17.04.0",
             "Os": "linux",

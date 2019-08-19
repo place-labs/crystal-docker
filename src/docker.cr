@@ -20,11 +20,11 @@ module Docker
 
   # Creates a new low-level docker API wrapper the local docker socket.
   def api_client
-    Docker::Api::Client.new
+    Docker::Api::ApiClient.new
   end
 
   # Creates a new low-level docker API wrapper for *base_url*
   def api_client(base_url)
-    Docker::Api::Client.new base_url
+    Docker::Api::ApiClient.new base_url
   end
 end

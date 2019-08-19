@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 describe Docker::Api::Containers do
-  client = Docker::Api::Client.new
+  client = Docker::Api::ApiClient.new
 
   describe "#containers" do
     it "queries containers" do
@@ -170,7 +170,7 @@ describe Docker::Api::Containers do
         ]
       JSON
       WebMock
-        .stub(:get, "#{client.client.host}/containers/json")
+        .stub(:get, "#{client.connection.host}/containers/json")
         .with(query: {"all" => "true"})
         .to_return(body: response)
       containers = client.containers all: true
@@ -180,7 +180,7 @@ describe Docker::Api::Containers do
   describe "#create_container" do
     it "correctly builds requests" do
       WebMock
-        .stub(:post, "#{client.client.host}/containers/create")
+        .stub(:post, "#{client.connection.host}/containers/create")
         .with(
           query: {"name" => "test"},
           body: {
@@ -206,7 +206,7 @@ describe Docker::Api::Containers do
     it "inspects container objects" do
       id = "abc123"
       WebMock
-        .stub(:get, "#{client.client.host}/containers/#{id}/json")
+        .stub(:get, "#{client.connection.host}/containers/#{id}/json")
         .to_return(body: <<-JSON
         {
           "AppArmorProfile": "",
@@ -388,7 +388,7 @@ describe Docker::Api::Containers do
       it "correctly builds requests" do
         id = "test"
         WebMock
-          .stub(:post, "#{client.client.host}/containers/#{id}/{{action.id}}")
+          .stub(:post, "#{client.connection.host}/containers/#{id}/{{action.id}}")
           .to_return(status: 204)
         client.{{action.id}} "test"
       end
@@ -399,7 +399,7 @@ describe Docker::Api::Containers do
     it "correctly builds requests" do
       id = "test"
       WebMock
-        .stub(:post, "#{client.client.host}/containers/#{id}/wait")
+        .stub(:post, "#{client.connection.host}/containers/#{id}/wait")
         .to_return(body: <<-JSON
          {
            "StatusCode": 0,
@@ -417,7 +417,7 @@ describe Docker::Api::Containers do
   describe "#remove_container" do
     it "correctly builds requests" do
       id = "test"
-      WebMock.stub(:delete, "#{client.client.host}/containers/#{id}")
+      WebMock.stub(:delete, "#{client.connection.host}/containers/#{id}")
       client.remove_container "test"
     end
   end

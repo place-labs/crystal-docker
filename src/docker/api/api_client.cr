@@ -8,11 +8,17 @@ require "./containers"
 require "./daemon"
 
 # Low-level wrapper for the Docker Engine API.
-class Docker::Api::Client
+#
+# Each method on maps one-to-one with a REST API endpoint, and returns the response that the API
+# responds with. It's possible to use `ApiClient` directly if you require the extra flexibility,
+# however in most cases the abstractions provided by the higher-level `Docker::Client` may be the
+# better choice.
+class Docker::Api::ApiClient
   DEFAULT_URL = "unix:///var/run/docker.sock"
 
   # :no_doc:
-  getter client : HTTP::Client
+  # Underlying HTTP connection - exposed for access from test framework only.
+  getter connection : HTTP::Client
 
   # API version in use, defaults to latest if `nil`
   getter api_version : String?
@@ -22,7 +28,7 @@ class Docker::Api::Client
 
     case uri.scheme
     when "unix"
-      @client = HTTP::Client.unix base_url.to_s.sub(/^unix:\/\//, "")
+      @connection = HTTP::Client.unix base_url.to_s.sub(/^unix:\/\//, "")
     else
       raise NotImplementedError.new("local unix socket only supported at the time")
     end
@@ -36,7 +42,7 @@ class Docker::Api::Client
     # ```
     def {{method.id}}(path, headers : HTTP::Headers? = nil, body : HTTP::Client::BodyType? = nil)
       path = "/#{api_version}#{path}" unless api_version.nil?
-      response = client.{{method.id}} path, headers, body
+      response = connection.{{method.id}} path, headers, body
       raise Docker::ApiError.from_response(response) unless response.success?
       response
     end
