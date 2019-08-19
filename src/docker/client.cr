@@ -1,6 +1,9 @@
 require "./api_client_wrapper"
+require "./containers"
 
-# User friendly client for type-safe interaction with the Docker Engine API.
+# A client for communicating with a Docker server.
+#
+# Provides the main entrypoint for common interaction with a docker instance.
 class Docker::Client
   include Docker::ApiClientWrapper
 
@@ -9,8 +12,8 @@ class Docker::Client
     @client = Docker::Api::ApiClient.new base_url
   end
 
-  # Provide scoped methods for container interaction.
-  def containers
+  # Provide an object for managing containers. See `Docker::Containers`.
+  def containers : Containers
     @containers ||= Containers.new client
   end
 end
