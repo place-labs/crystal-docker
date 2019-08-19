@@ -1,6 +1,8 @@
 require "json"
 require "./models/container"
+require "./models/create_container_response"
 require "./models/container_summary"
+require "./models/wait_response"
 
 module Docker::Api::Containers
   # List containers. Similar to the docker ps command.
@@ -15,19 +17,12 @@ module Docker::Api::Containers
     Array(Models::ContainerSummary).from_json response.body
   end
 
-  struct CreateContainerResponse
-    JSON.mapping({
-      id:       {setter: false, key: "Id", type: String},
-      warnings: {setter: false, key: "Warnings", type: Array(String)},
-    })
-  end
-
   def create_container(name : String? = nil, **props)
     params = HTTP::Params.build do |param|
       param.add "name", name unless name.nil?
     end
     response = post "/containers/create?#{params}", body: props.camelcase_keys.to_json
-    CreateContainerResponse.from_json response.body
+    Models::CreateContainerResponse.from_json response.body
   end
 
   # Identical to the docker inspect command, but only for containers.
@@ -96,26 +91,13 @@ module Docker::Api::Containers
     self
   end
 
-  struct WaitResponse
-    JSON.mapping({
-      status_code: {setter: false, key: "StatusCode", type: Int32},
-      error:       {setter: false, key: "Error", type: Error},
-    })
-
-    struct Error
-      JSON.mapping({
-        message: {setter: false, key: "Message", type: String},
-      })
-    end
-  end
-
   # Block until a container stops, then returns the exit code.
   def wait(id : String, condition : String? = nil)
     params = HTTP::Params.build do |param|
       param.add "condition", condition unless condition.nil?
     end
     response = post "/containers/#{id}/wait?#{params}"
-    WaitResponse.from_json response.body
+    Models::WaitResponse.from_json response.body
   end
 
   def remove_container(id : String, v : Bool? = nil, force : Bool? = nil, link : Bool? = nil)
