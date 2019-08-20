@@ -30,9 +30,10 @@ module Tools
 
     Dir.cd path do
       # NOTE: tar util will not allow output to stdout unless piped, hence the use of cat as a proxy.
-      process = Process.new "tar -co . | cat", shell: true, output: buf
-      status = process.wait
-      raise "Could not tar #{path}" unless status.success?
+      Process.run "tar -co . | cat", shell: true, output: Process::Redirect::Pipe do |process|
+        # FIXME: find a neater way of doing this without the intermediate string creation.
+        buf = IO::Memory.new process.output.gets_to_end
+      end
     end
 
     buf
