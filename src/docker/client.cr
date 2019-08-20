@@ -1,5 +1,6 @@
 require "./api_client_wrapper"
 require "./containers"
+require "./images"
 
 # A client for communicating with a Docker server.
 #
@@ -12,8 +13,10 @@ class Docker::Client
     @client = Docker::Api::ApiClient.new base_url
   end
 
-  # Provide an object for managing containers. See `Docker::Containers`.
-  def containers : Containers
-    @containers ||= Containers.new client
-  end
+  {% for component in %w(containers images) %}
+    # Provide an object for managing {{component.id}}. See `Docker::{{component.id.capitalize}}`.
+    def {{component.id}} : {{component.id.capitalize}}
+      @{{component.id}} ||= {{component.id.capitalize}}.new client
+    end
+  {% end %}
 end

@@ -7,6 +7,7 @@ require "../../core_ext/named_tuple/camelcase_keys"
 require "../errors"
 require "./containers"
 require "./daemon"
+require "./images"
 
 # Low-level wrapper for the Docker Engine API.
 #
@@ -64,4 +65,5 @@ class Docker::Api::ApiClient
 
   include Containers
   include Daemon
+  include Images
 end
