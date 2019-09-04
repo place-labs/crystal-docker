@@ -1,4 +1,5 @@
 require "../../tools"
+require "./models/image"
 
 # API queries for image interaction.
 module Docker::Api::Images
