@@ -49,7 +49,8 @@ class Docker::Api::ApiClient
       response
     end
 
-    # :ditto:
+    # Executes a {{method.id.upcase}} request on the docker client connection with a JSON body
+    # formed from the passed `NamedTuple`.
     def {{method.id}}(path, body : NamedTuple)
       headers = HTTP::Headers.new
       headers["Content-Type"] = "application/json"
@@ -60,6 +61,36 @@ class Docker::Api::ApiClient
     def {{method.id}}(path, headers : HTTP::Headers, body : NamedTuple)
       headers["Content-Type"] = "application/json"
       {{method.id}} path, headers, body.camelcase_keys.to_json
+    end
+
+    # Executes a {{method.id.upcase}} request and yields the response to the block.
+    # The response will have its body as an `IO` accessed via `HTTP::Client::Response#body_io`.
+    #
+    # The response status will be automatically checked and a Docker::ApiError raised if
+    # unsuccessful.
+    def {{method.id}}(path, headers : HTTP::Headers? = nil, body : HTTP::Client::BodyType = nil)
+      connection.{{method.id}} path, headers, body do |response|
+        raise Docker::ApiError.from_response(response) unless response.success?
+        yield response
+      end
+    end
+
+    # Executes a {{method.id.upcase}} request on the docker client connection with a JSON body
+    # formed from the passed `NamedTuple`  and yields the response to the block.
+    def {{method.id}}(path, body : NamedTuple)
+      headers = HTTP::Headers.new
+      headers["Content-Type"] = "application/json"
+      {{method.id}} path, headers, body.camelcase_keys.to_json do |response|
+        yield response
+      end
+    end
+
+    # :ditto:
+    def {{method.id}}(path, headers : HTTP::Headers, body : NamedTuple)
+      headers["Content-Type"] = "application/json"
+      {{method.id}} path, headers, body.camelcase_keys.to_json do |response|
+        yield response
+      end
     end
   {% end %}
 

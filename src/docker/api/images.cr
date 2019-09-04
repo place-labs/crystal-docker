@@ -14,6 +14,8 @@ module Docker::Api::Images
     headers = HTTP::Headers.new
     headers["Content-Type"] = "application/x-tar"
 
-    post "/build?#{params}", headers: headers, body: Tools.tar path
+    post "/build?#{params}", headers: headers, body: Tools.tar path do |response|
+      yield response
+    end
   end
 end
