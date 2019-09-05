@@ -63,8 +63,10 @@ class Docker::Api::ApiClient
       {{method.id}} path, headers, body.camelcase_keys.to_json
     end
 
-    # Executes a {{method.id.upcase}} request and yields the response to the block.
-    # The response will have its body as an `IO` accessed via `HTTP::Client::Response#body_io`.
+    # Executes a {{method.id.upcase}} request and yields a `HTTP::Client::Response`.
+    #
+    # When working with endpoint that provide stream responses these may be accessed as available
+    # by calling `#body_io` on the yielded response object.
     #
     # The response status will be automatically checked and a Docker::ApiError raised if
     # unsuccessful.
@@ -76,7 +78,7 @@ class Docker::Api::ApiClient
     end
 
     # Executes a {{method.id.upcase}} request on the docker client connection with a JSON body
-    # formed from the passed `NamedTuple`  and yields the response to the block.
+    # formed from the passed `NamedTuple` and yields streamed response entries to the block.
     def {{method.id}}(path, body : NamedTuple)
       headers = HTTP::Headers.new
       headers["Content-Type"] = "application/json"
