@@ -1,6 +1,6 @@
 require "json"
 
-struct Docker::Api::Models::Error
+struct Docker::Api::Models::ErrorResponse
   JSON.mapping({
     message: {type: String, setter: false},
   })

@@ -1,5 +1,4 @@
 require "json"
-require "./error"
 
 struct Docker::Api::Models::WaitResponse
   JSON.mapping({
