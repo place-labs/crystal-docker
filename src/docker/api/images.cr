@@ -17,20 +17,30 @@ module Docker::Api::Images
     headers = HTTP::Headers.new
     headers["Content-Type"] = "application/x-tar"
 
-    channel = Channel(Iterator(Models::BuildInfo)).new
+    # OPTIMIZE: current version of the crystal compiler (0.30.0) do not support passing Iterators
+    # across a channel. When this is corrected, the IO within the response block and pre-parsed
+    # BuildInfo provided directly as an iterator. Implementation below.
+    # See: https://github.com/crystal-lang/crystal/issues/8150
+    #
+    # channel = Channel(Iterator(Models::BuildInfo)).new
+    # post "/build?#{params}", headers: headers, body: Tools.tar path do |response|
+    #   # Responses are returned as JSON-lines in a streamed response body
+    #   line_iter  = response.body_io.each_line
+    #   build_info = line_iter.map &->Models::BuildInfo.from_json(String)
+    #   channel.send build_info
+    # end
+    # channel.receive
 
+    # Responses are returned as JSON-lines in a streamed response body. Block until headers are
+    # received, then continue with a body IO.
+    channel = Channel(IO).new
     spawn do
       post "/build?#{params}", headers: headers, body: Tools.tar path do |response|
-        # Responses are returned as JSON-lines in a streamed response body
-        line_iter  = response.body_io.each_line
-        build_info = line_iter.map &->Models::BuildInfo.from_json(String)
-        channel.send build_info
+        channel.send response.body_io
       end
     end
+    body_io = channel.receive
 
-    # FIXME: this is creation infinite recursion in the compiler - need to put a workaround in
-    # place that doesn't pass the iterator to the channel.
-    # see: https://github.com/crystal-lang/crystal/issues/8150
-    channel.receive
+    body_io.each_line.map &->Models::BuildInfo.from_json(String)
   end
 end
