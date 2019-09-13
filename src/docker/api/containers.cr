@@ -9,12 +9,13 @@ module Docker::Api::Containers
   # List containers.
   #
   # Similar to the `docker ps` command.
-  def containers(all : Bool? = nil, limit : Int? = nil, size : Bool? = nil, filters : String? = nil)
+  def containers(all : Bool? = nil, limit : Int? = nil, size : Bool? = nil, filters : Hash? = nil)
+    transformed_filters = filters.try &.transform_values { |v| v.is_a?(Array) ? v : [v] }
     params = HTTP::Params.build do |param|
       param.add "all", all.to_s unless all.nil?
       param.add "limit", limit.to_s unless limit.nil?
       param.add "size", size.to_s unless size.nil?
-      param.add "filters", filters.to_s unless filters.nil?
+      param.add "filters", transformed_filters.to_json unless transformed_filters.nil?
     end
     response = get "/containers/json?#{params}"
     Array(Models::ContainerSummary).from_json response.body
