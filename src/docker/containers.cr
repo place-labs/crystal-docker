@@ -11,7 +11,7 @@ class Docker::Containers
   #
   # Returns a `Docker::Container` that may be used to start, inspect or otherwise interact with the
   # created container.
-  def create(image = String, **props)
+  def create(image : String, **props)
     response = client.create_container **props.merge image: image
     Container.new client, response.id
   end

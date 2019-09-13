@@ -7,7 +7,7 @@ class Docker::Images
   # Build an image and return it.
   #
   # Similar to the `docker build` command.
-  def build(path = String, **props)
+  def build(path : String, **props)
     updates = client.build path, **props
 
     # NOTE: despite the API docs specifying an object with seperate fields for error, progress etc,
