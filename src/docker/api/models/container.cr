@@ -30,7 +30,7 @@ struct Docker::Api::Models::Container
       attach_stderr:    {setter: false, key: "AttachStderr", type: Bool},
       attach_stdin:     {setter: false, key: "AttachStdin", type: Bool},
       attach_stdout:    {setter: false, key: "AttachStdout", type: Bool},
-      cmd:              {setter: false, key: "Cmd", type: Array(String)},
+      cmd:              {setter: false, key: "Cmd", type: Array(String)?},
       domainname:       {setter: false, key: "Domainname", type: String},
       env:              {setter: false, key: "Env", type: Array(String)},
       hostname:         {setter: false, key: "Hostname", type: String},
@@ -143,10 +143,10 @@ struct Docker::Api::Models::Container
 
   struct Mount
     JSON.mapping({
-      name:        {setter: false, key: "Name", type: String},
+      name:        {setter: false, key: "Name", type: String?},
       source:      {setter: false, key: "Source", type: String},
       destination: {setter: false, key: "Destination", type: String},
-      driver:      {setter: false, key: "Driver", type: String},
+      driver:      {setter: false, key: "Driver", type: String?},
       mode:        {setter: false, key: "Mode", type: String},
       rw:          {setter: false, key: "RW", type: Bool},
       propogation: {setter: false, key: "Propagation", type: String},

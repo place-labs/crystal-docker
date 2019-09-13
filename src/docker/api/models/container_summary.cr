@@ -22,8 +22,9 @@ struct Docker::Api::Models::ContainerSummary
 
   struct PortBinding
     JSON.mapping({
+      ip:           {setter: false, key: "IP", type: String?},
       private_port: {setter: false, key: "PrivatePort", type: Int32},
-      public_port:  {setter: false, key: "PublicPort", type: Int32},
+      public_port:  {setter: false, key: "PublicPort", type: Int32?},
       type:         {setter: false, key: "Type", type: String},
     })
   end
