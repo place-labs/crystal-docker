@@ -82,7 +82,7 @@ class Docker::Container
   #
   # Similar to the `docker rm` command.
   def remove(v = nil, force = nil, link = nil)
-    client.remove id, v, force, link
+    client.remove_container id, v, force, link
     nil
   end
 
@@ -90,7 +90,7 @@ class Docker::Container
   #
   # Similar to the `docker rename` command.
   def rename(name : String)
-    client.rename id name
+    client.rename id, name
     self
   end
 

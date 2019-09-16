@@ -132,9 +132,9 @@ module Docker::Api::Containers
   # Similar to the `docker rm` command.
   def remove_container(id : String, v : Bool? = nil, force : Bool? = nil, link : Bool? = nil)
     params = HTTP::Params.build do |param|
-      param.add "v", v unless v.nil?
-      param.add "force", force unless force.nil?
-      param.add "link", link unless link.nil?
+      param.add "v", v.to_s unless v.nil?
+      param.add "force", force.to_s unless force.nil?
+      param.add "link", link.to_s unless link.nil?
     end
     delete "/containers/#{id}?#{params}"
     nil
