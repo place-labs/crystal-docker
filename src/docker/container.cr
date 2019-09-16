@@ -31,7 +31,7 @@ class Docker::Container
 
   # The labels of a container.
   def labels
-    attrs.labels
+    attrs.config.labels
   end
 
   # The name of the container.
