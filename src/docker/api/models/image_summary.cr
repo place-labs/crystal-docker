@@ -1,5 +1,4 @@
 require "json"
-require "./image"
 
 struct Docker::Api::Models::ImageSummary
   JSON.mapping({

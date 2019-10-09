@@ -22,4 +22,14 @@ module Docker
 
     getter status_code : Int32
   end
+
+  class BuildError < DockerException
+    def initialize(build_output : Array(String), message = "")
+      @build_log = build_output.join
+
+      super message
+    end
+
+    getter build_log : String
+  end
 end
