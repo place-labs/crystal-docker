@@ -1,6 +1,7 @@
 require "../../tools"
 require "./models/build_info"
 require "./models/image"
+require "./models/image_summary"
 
 # API queries for image interaction.
 module Docker::Api::Images
@@ -42,5 +43,27 @@ module Docker::Api::Images
     body_io = channel.receive
 
     body_io.each_line.map &->Models::BuildInfo.from_json(String)
+  end
+
+  # List images.
+  #
+  # Similar to the `docker ps` command.
+  def images(all : Bool? = nil, name : String? = nil, filters : Hash? = nil)
+    transformed_filters = filters.try &.transform_values { |v| v.is_a?(Array) ? v : [v] }
+    params = HTTP::Params.build do |param|
+      param.add "all", all.to_s unless all.nil?
+      param.add "name", name.to_s unless name.nil?
+      param.add "filters", transformed_filters.to_json unless transformed_filters.nil?
+    end
+    response = get "/images/json?#{params}"
+    Array(Models::ImageSummary).from_json response.body
+  end
+
+  # Query image info.
+  #
+  # Identical to the `docker inspect` command, but only for image.
+  def inspect_image(id : String)
+    response = get "/images/#{id}/json"
+    Models::Image.from_json response.body
   end
 end
