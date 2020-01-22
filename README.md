@@ -14,7 +14,7 @@ Client structure has been designed to mirror API provided by the [official pytho
 
    ```yaml
    dependencies:
-     crystal-docker:
+     docker:
        github: aca-labs/crystal-docker
    ```
 
