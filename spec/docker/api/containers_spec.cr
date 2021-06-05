@@ -193,7 +193,7 @@ describe Docker::Api::Containers do
             "Warnings": []
           }
           JSON
-        )
+      )
       response = client.create_container("test",
         image: "aca-labs/crystal-docker",
         env: ["FOO=bar", "BAZ=quux"]

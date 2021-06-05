@@ -1,43 +1,58 @@
-require "json"
 require "./container"
+require "./response"
 
-struct Docker::Api::Models::ContainerSummary
-  JSON.mapping({
-    id:               {setter: false, key: "Id", type: String},
-    names:            {setter: false, key: "Names", type: Array(String)},
-    image:            {setter: false, key: "Image", type: String},
-    image_id:         {setter: false, key: "ImageID", type: String},
-    command:          {setter: false, key: "Command", type: String},
-    created:          {setter: false, key: "Created", type: Time, converter: Time::EpochConverter},
-    state:            {setter: false, key: "State", type: String},
-    status:           {setter: false, key: "Status", type: String},
-    ports:            {setter: false, key: "Ports", type: Array(PortBinding)},
-    labels:           {setter: false, key: "Labels", type: Hash(String, String)},
-    size_rw:          {setter: false, key: "SizeRw", type: Int32?},
-    size_root_fs:     {setter: false, key: "SizeRootFs", type: Int32?},
-    host_config:      {setter: false, key: "HostConfig", type: HostConfig},
-    network_settings: {setter: false, key: "NetworkSettings", type: NetworkSettings},
-    mounts:           {setter: false, key: "Mounts", type: Array(Container::Mount)},
-  })
+module Docker::Api::Models
+  struct ContainerSummary < Response
+    @[JSON::Field(key: "Id")]
+    getter id : String
+    @[JSON::Field(key: "Names")]
+    getter names : Array(String)
+    @[JSON::Field(key: "Image")]
+    getter image : String
+    @[JSON::Field(key: "ImageID")]
+    getter image_id : String
+    @[JSON::Field(key: "Command")]
+    getter command : String
+    @[JSON::Field(key: "Created", converter: Time::EpochConverter)]
+    getter created : Time
+    @[JSON::Field(key: "State")]
+    getter state : String
+    @[JSON::Field(key: "Status")]
+    getter status : String
+    @[JSON::Field(key: "Ports")]
+    getter ports : Array(PortBinding)
+    @[JSON::Field(key: "Labels")]
+    getter labels : Hash(String, String)
+    @[JSON::Field(key: "SizeRw")]
+    getter size_rw : Int32?
+    @[JSON::Field(key: "SizeRootFs")]
+    getter size_root_fs : Int32?
+    @[JSON::Field(key: "HostConfig")]
+    getter host_config : HostConfig
+    @[JSON::Field(key: "NetworkSettings")]
+    getter network_settings : NetworkSettings
+    @[JSON::Field(key: "Mounts")]
+    getter mounts : Array(Container::Mount)
 
-  struct PortBinding
-    JSON.mapping({
-      ip:           {setter: false, key: "IP", type: String?},
-      private_port: {setter: false, key: "PrivatePort", type: Int32},
-      public_port:  {setter: false, key: "PublicPort", type: Int32?},
-      type:         {setter: false, key: "Type", type: String},
-    })
-  end
+    struct PortBinding < Response
+      @[JSON::Field(key: "IP")]
+      getter ip : String?
+      @[JSON::Field(key: "PrivatePort")]
+      getter private_port : Int32
+      @[JSON::Field(key: "PublicPort")]
+      getter public_port : Int32?
+      @[JSON::Field(key: "Type")]
+      getter type : String
+    end
 
-  struct HostConfig
-    JSON.mapping({
-      network_mode: {setter: false, key: "NetworkMode", type: String},
-    })
-  end
+    struct HostConfig < Response
+      @[JSON::Field(key: "NetworkMode")]
+      getter network_mode : String
+    end
 
-  struct NetworkSettings
-    JSON.mapping({
-      networks: {setter: false, key: "Networks", type: Hash(String, Container::NetworkSettings::Network)},
-    })
+    struct NetworkSettings < Response
+      @[JSON::Field(key: "Networks")]
+      getter networks : Hash(String, Container::NetworkSettings::Network)
+    end
   end
 end

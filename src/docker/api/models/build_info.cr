@@ -1,27 +1,34 @@
-require "json"
+require "./response"
 
-struct Docker::Api::Models::BuildInfo
-  JSON.mapping({
-    id:              {setter: false, key: "id", type: String?},
-    stream:          {setter: false, key: "stream", type: String?},
-    error:           {setter: false, key: "error", type: String?},
-    error_detail:    {setter: false, key: "errorDetail", type: ErrorDetail?},
-    status:          {setter: false, key: "status", type: String?},
-    progress:        {setter: false, key: "progress", type: String?},
-    progress_detail: {setter: false, key: "progressDetail", type: ProgressDetail?},
-  })
+module Docker::Api::Models
+  struct BuildInfo < Response
+    @[JSON::Field(key: "id")]
+    getter id : String?
+    @[JSON::Field(key: "stream")]
+    getter stream : String?
+    @[JSON::Field(key: "error")]
+    getter error : String?
+    @[JSON::Field(key: "errorDetail")]
+    getter error_detail : ErrorDetail?
+    @[JSON::Field(key: "status")]
+    getter status : String?
+    @[JSON::Field(key: "progress")]
+    getter progress : String?
+    @[JSON::Field(key: "progressDetail")]
+    getter progress_detail : ProgressDetail?
 
-  struct ErrorDetail
-    JSON.mapping({
-      code:    {setter: false, key: "code", type: Int32},
-      message: {setter: false, key: "message", type: String},
-    })
-  end
+    struct ErrorDetail < Response
+      @[JSON::Field(key: "code")]
+      getter code : Int32
+      @[JSON::Field(key: "message")]
+      getter message : String
+    end
 
-  struct ProgressDetail
-    JSON.mapping({
-      current: {setter: false, key: "current", type: Int32},
-      total:   {setter: false, key: "total", type: Int32},
-    })
+    struct ProgressDetail < Response
+      @[JSON::Field(key: "current")]
+      getter current : Int32
+      @[JSON::Field(key: "total")]
+      getter total : Int32
+    end
   end
 end

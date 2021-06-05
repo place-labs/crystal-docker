@@ -1,16 +1,26 @@
-require "json"
+require "./response"
 
-struct Docker::Api::Models::ImageSummary
-  JSON.mapping({
-    containers:   {key: "Containers", type: Int32},
-    created:      {key: "Created", type: Int32},
-    id:           {key: "Id", type: String},
-    labels:       {key: "Labels", type: Hash(String, String)?},
-    parent_id:    {key: "ParentId", type: String},
-    repo_digests: {key: "RepoDigests", type: Array(String)?},
-    repo_tags:    {key: "RepoTags", type: Array(String)?},
-    shared_size:  {key: "SharedSize", type: Int32},
-    size:         {key: "Size", type: Int32},
-    virtual_size: {key: "VirtualSize", type: Int32},
-  })
+module Docker::Api::Models
+  struct ImageSummary < Response
+    @[JSON::Field(key: "Containers")]
+    getter containers : Int32
+    @[JSON::Field(key: "Created")]
+    getter created : Int32
+    @[JSON::Field(key: "Id")]
+    getter id : String
+    @[JSON::Field(key: "Labels")]
+    getter labels : Hash(String, String)?
+    @[JSON::Field(key: "ParentId")]
+    getter parent_id : String
+    @[JSON::Field(key: "RepoDigests")]
+    getter repo_digests : Array(String)?
+    @[JSON::Field(key: "RepoTags")]
+    getter repo_tags : Array(String)?
+    @[JSON::Field(key: "SharedSize")]
+    getter shared_size : Int32
+    @[JSON::Field(key: "Size")]
+    getter size : Int32
+    @[JSON::Field(key: "VirtualSize")]
+    getter virtual_size : Int32
+  end
 end

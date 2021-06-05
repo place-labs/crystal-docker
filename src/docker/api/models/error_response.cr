@@ -1,7 +1,7 @@
-require "json"
+require "./response"
 
-struct Docker::Api::Models::ErrorResponse
-  JSON.mapping({
-    message: {type: String, setter: false},
-  })
+module Docker::Api::Models
+  struct ErrorResponse < Response
+    getter message : String
+  end
 end

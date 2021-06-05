@@ -1,18 +1,16 @@
 name: docker
-version: 0.1.0
-
+version: 0.2.0
+crystal: ">= 0.36.1"
+license: MIT
 authors:
   - Kim Burgess <kim@acaprojects.com>
+  - Caspian Baska <email@caspian.computer>
 
-crystal: 0.29.0
-
-license: MIT
+dependencies:
+  crystar:
+    github: naqvis/crystar
 
 development_dependencies:
   webmock:
     github: manastech/webmock.cr
     branch: master
-
-dependencies:
-  crystar:
-    github: naqvis/crystar

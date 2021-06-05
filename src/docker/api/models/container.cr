@@ -1,155 +1,263 @@
-require "json"
+require "./response"
 
-struct Docker::Api::Models::Container
-  JSON.mapping({
-    app_armor_profile: {setter: false, key: "AppArmorProfile", type: String},
-    args:              {setter: false, key: "Args", type: Array(String)},
-    config:            {setter: false, key: "Config", type: Config},
-    created:           {setter: false, key: "Created", type: Time},
-    driver:            {setter: false, key: "Driver", type: String},
-    exec_ids:          {setter: false, key: "ExecIDs", type: Array(String)?},
-    host_config:       {setter: false, key: "HostConfig", type: HostConfig},
-    hostname_path:     {setter: false, key: "HostnamePath", type: String},
-    hosts_path:        {setter: false, key: "HostsPath", type: String},
-    log_path:          {setter: false, key: "LogPath", type: String},
-    id:                {setter: false, key: "Id", type: String},
-    image:             {setter: false, key: "Image", type: String},
-    mount_label:       {setter: false, key: "MountLabel", type: String},
-    name:              {setter: false, key: "Name", type: String},
-    network_settings:  {setter: false, key: "NetworkSettings", type: NetworkSettings},
-    path:              {setter: false, key: "Path", type: String},
-    process_label:     {setter: false, key: "ProcessLabel", type: String},
-    resolv_conf_path:  {setter: false, key: "ResolvConfPath", type: String},
-    restart_count:     {setter: false, key: "RestartCount", type: Int32},
-    state:             {setter: false, key: "State", type: State},
-    mounts:            {setter: false, key: "Mounts", type: Array(Mount)},
-  })
+module Docker::Api::Models
+  struct Container < Response
+    @[JSON::Field(key: "AppArmorProfile")]
+    getter app_armor_profile : String
+    @[JSON::Field(key: "Args")]
+    getter args : Array(String)
+    @[JSON::Field(key: "Config")]
+    getter config : Config
+    @[JSON::Field(key: "Created")]
+    getter created : Time
+    @[JSON::Field(key: "Driver")]
+    getter driver : String
+    @[JSON::Field(key: "ExecIDs")]
+    getter exec_ids : Array(String)?
+    @[JSON::Field(key: "HostConfig")]
+    getter host_config : HostConfig
+    @[JSON::Field(key: "HostnamePath")]
+    getter hostname_path : String
+    @[JSON::Field(key: "HostsPath")]
+    getter hosts_path : String
+    @[JSON::Field(key: "LogPath")]
+    getter log_path : String
+    @[JSON::Field(key: "Id")]
+    getter id : String
+    @[JSON::Field(key: "Image")]
+    getter image : String
+    @[JSON::Field(key: "MountLabel")]
+    getter mount_label : String
+    @[JSON::Field(key: "Name")]
+    getter name : String
 
-  struct Config
-    JSON.mapping({
-      attach_stderr:    {setter: false, key: "AttachStderr", type: Bool},
-      attach_stdin:     {setter: false, key: "AttachStdin", type: Bool},
-      attach_stdout:    {setter: false, key: "AttachStdout", type: Bool},
-      cmd:              {setter: false, key: "Cmd", type: Array(String)?},
-      domainname:       {setter: false, key: "Domainname", type: String},
-      env:              {setter: false, key: "Env", type: Array(String)},
-      hostname:         {setter: false, key: "Hostname", type: String},
-      image:            {setter: false, key: "Image", type: String},
-      labels:           {setter: false, key: "Labels", type: Hash(String, String)},
-      mac_address:      {setter: false, key: "MacAddress", type: String?},
-      network_disabled: {setter: false, key: "NetworkDisabled", type: Bool?},
-      open_stdin:       {setter: false, key: "OpenStdin", type: Bool},
-      stdin_once:       {setter: false, key: "StdinOnce", type: Bool},
-      tty:              {setter: false, key: "Tty", type: Bool},
-      user:             {setter: false, key: "User", type: String},
-      volumes:          {setter: false, key: "Volumes", type: Hash(String, JSON::Any)?},
-      working_dir:      {setter: false, key: "WorkingDir", type: String},
-      stop_signal:      {setter: false, key: "StopSignal", type: String?},
-      stop_timeout:     {setter: false, key: "StopTimeout", type: Int32?},
-    })
-  end
+    @[JSON::Field(key: "NetworkSettings")]
+    getter network_settings : NetworkSettings
+    @[JSON::Field(key: "Path")]
+    getter path : String
+    @[JSON::Field(key: "ProcessLabel")]
+    getter process_label : String
+    @[JSON::Field(key: "ResolvConfPath")]
+    getter resolv_conf_path : String
+    @[JSON::Field(key: "RestartCount")]
+    getter restart_count : Int32
+    @[JSON::Field(key: "State")]
+    getter state : State
+    @[JSON::Field(key: "Mounts")]
+    getter mounts : Array(Mount)
 
-  struct HostConfig
-    JSON.mapping({
-      maxium_iops:             {setter: false, key: "MaximumIOps", type: Int32?},
-      maxium_iobps:            {setter: false, key: "MaximumIOBps", type: Int32?},
-      blkio_weight:            {setter: false, key: "BlkioWeight", type: Int32},
-      blkio_weight_device:     {setter: false, key: "BlkioWeightDevice", type: Array(JSON::Any)?},
-      blkio_device_read_bps:   {setter: false, key: "BlkioDeviceReadBps", type: Array(JSON::Any)?},
-      blkio_device_write_bps:  {setter: false, key: "BlkioDeviceWriteBps", type: Array(JSON::Any)?},
-      blkio_device_read_iops:  {setter: false, key: "BlkioDeviceReadIOps", type: Array(JSON::Any)?},
-      blkio_device_write_iops: {setter: false, key: "BlkioDeviceWriteIOps", type: Array(JSON::Any)?},
-      container_id_file:       {setter: false, key: "ContainerIDFile", type: String},
-      cpuset_cpus:             {setter: false, key: "CpusetCpus", type: String},
-      cpuset_mems:             {setter: false, key: "CpusetMems", type: String},
-      cpu_percent:             {setter: false, key: "CpuPercent", type: Int32},
-      cpu_shares:              {setter: false, key: "CpuShares", type: Int32},
-      cpu_period:              {setter: false, key: "CpuPeriod", type: Int32},
-      cpu_realtime_period:     {setter: false, key: "CpuRealtimePeriod", type: Int32},
-      cpu_runtime_period:      {setter: false, key: "CpuRealtimeRuntime", type: Int32},
-      devices:                 {setter: false, key: "Devices", type: Array(JSON::Any)?},
-      ipc_mode:                {setter: false, key: "IpcMode", type: String},
-      lxc_conf:                {setter: false, key: "LxcConf", type: Array(JSON::Any)?},
-      memory:                  {setter: false, key: "Memory", type: Int32},
-      memory_swap:             {setter: false, key: "MemorySwap", type: Int32},
-      memory_reservation:      {setter: false, key: "MemoryReservation", type: Int32},
-      kernel_memory:           {setter: false, key: "KernelMemory", type: Int32},
-      oom_kill_disable:        {setter: false, key: "OomKillDisable", type: Bool},
-      joom_score_adj:          {setter: false, key: "OomScoreAdj", type: Int32},
-      network_mode:            {setter: false, key: "NetworkMode", type: String},
-      pid_mode:                {setter: false, key: "PidMode", type: String},
-      port_bindings:           {setter: false, key: "PortBindings", type: JSON::Any?},
-      privileged:              {setter: false, key: "Privileged", type: Bool},
-      readonly_rootfs:         {setter: false, key: "ReadonlyRootfs", type: Bool},
-      publish_all_ports:       {setter: false, key: "PublishAllPorts", type: Bool},
-      restart_policy:          {setter: false, key: "RestartPolicy", type: JSON::Any?},
-      log_config:              {setter: false, key: "LogConfig", type: JSON::Any?},
-      sysctls:                 {setter: false, key: "Sysctls", type: JSON::Any?},
-      ulimits:                 {setter: false, key: "Ulimits", type: Array(JSON::Any)?},
-      volume_driver:           {setter: false, key: "VolumeDriver", type: String},
-      shm_size:                {setter: false, key: "ShmSize", type: Int32},
-    })
-  end
-
-  struct NetworkSettings
-    JSON.mapping({
-      bridge:                     {setter: false, key: "Bridge", type: String},
-      sandbox_id:                 {setter: false, key: "SandboxID", type: String},
-      hairpin_mode:               {setter: false, key: "HairpinMode", type: Bool},
-      link_local_ipv6_address:    {setter: false, key: "LinkLocalIPv6Address", type: String},
-      link_local_ipv6_prefix_len: {setter: false, key: "LinkLocalIPv6PrefixLen", type: Int32},
-      sandbox_key:                {setter: false, key: "SandboxKey", type: String},
-      endpoint_id:                {setter: false, key: "EndpointID", type: String},
-      gateway:                    {setter: false, key: "Gateway", type: String},
-      global_ipv6_address:        {setter: false, key: "GlobalIPv6Address", type: String},
-      global_ipv6_prefix_len:     {setter: false, key: "GlobalIPv6PrefixLen", type: Int32},
-      ip_address:                 {setter: false, key: "IPAddress", type: String},
-      ip_prefix_len:              {setter: false, key: "IPPrefixLen", type: Int32},
-      ipv6_gatway:                {setter: false, key: "IPv6Gateway", type: String},
-      mac_address:                {setter: false, key: "MacAddress", type: String},
-      networks:                   {setter: false, key: "Networks", type: Hash(String, Network)},
-    })
-
-    struct Network
-      JSON.mapping({
-        network_id:             {setter: false, key: "NetworkID", type: String},
-        endpoint_id:            {setter: false, key: "EndpointID", type: String},
-        gateway:                {setter: false, key: "Gateway", type: String},
-        ip_address:             {setter: false, key: "IPAddress", type: String},
-        ip_prefix_len:          {setter: false, key: "IPPrefixLen", type: Int32},
-        ipv6_gatway:            {setter: false, key: "IPv6Gateway", type: String},
-        global_ipv6_address:    {setter: false, key: "GlobalIPv6Address", type: String},
-        global_ipv6_prefix_len: {setter: false, key: "GlobalIPv6PrefixLen", type: Int32},
-        mac_address:            {setter: false, key: "MacAddress", type: String},
-      })
+    struct Config < Response
+      @[JSON::Field(key: "AttachStderr")]
+      getter attach_stderr : Bool
+      @[JSON::Field(key: "AttachStdin")]
+      getter attach_stdin : Bool
+      @[JSON::Field(key: "AttachStdout")]
+      getter attach_stdout : Bool
+      @[JSON::Field(key: "Cmd")]
+      getter cmd : Array(String)?
+      @[JSON::Field(key: "Domainname")]
+      getter domainname : String
+      @[JSON::Field(key: "Env")]
+      getter env : Array(String)
+      @[JSON::Field(key: "Hostname")]
+      getter hostname : String
+      @[JSON::Field(key: "Image")]
+      getter image : String
+      @[JSON::Field(key: "Labels")]
+      getter labels : Hash(String, String)
+      @[JSON::Field(key: "MacAddress")]
+      getter mac_address : String?
+      @[JSON::Field(key: "NetworkDisabled")]
+      getter network_disabled : Bool?
+      @[JSON::Field(key: "OpenStdin")]
+      getter open_stdin : Bool
+      @[JSON::Field(key: "StdinOnce")]
+      getter stdin_once : Bool
+      @[JSON::Field(key: "Tty")]
+      getter tty : Bool
+      @[JSON::Field(key: "User")]
+      getter user : String
+      @[JSON::Field(key: "Volumes")]
+      getter volumes : Hash(String, JSON::Any)?
+      @[JSON::Field(key: "WorkingDir")]
+      getter working_dir : String
+      @[JSON::Field(key: "StopSignal")]
+      getter stop_signal : String?
+      @[JSON::Field(key: "StopTimeout")]
+      getter stop_timeout : Int32?
     end
-  end
 
-  struct State
-    JSON.mapping({
-      error:       {setter: false, key: "Error", type: String},
-      exit_code:   {setter: false, key: "ExitCode", type: Int32},
-      finished_at: {setter: false, key: "FinishedAt", type: Time},
-      oom_killed:  {setter: false, key: "OOMKilled", type: Bool},
-      dead:        {setter: false, key: "Dead", type: Bool},
-      paused:      {setter: false, key: "Paused", type: Bool},
-      pid:         {setter: false, key: "Pid", type: Int32},
-      restarting:  {setter: false, key: "Restarting", type: Bool},
-      running:     {setter: false, key: "Running", type: Bool},
-      started_at:  {setter: false, key: "StartedAt", type: Time},
-      status:      {setter: false, key: "Status", type: String},
-    })
-  end
+    struct HostConfig < Response
+      @[JSON::Field(key: "MaximumIOps")]
+      getter maxium_iops : Int32?
+      @[JSON::Field(key: "MaximumIOBps")]
+      getter maxium_iobps : Int32?
+      @[JSON::Field(key: "BlkioWeight")]
+      getter blkio_weight : Int32
+      @[JSON::Field(key: "BlkioWeightDevice")]
+      getter blkio_weight_device : Array(JSON::Any)?
+      @[JSON::Field(key: "BlkioDeviceReadBps")]
+      getter blkio_device_read_bps : Array(JSON::Any)?
+      @[JSON::Field(key: "BlkioDeviceWriteBps")]
+      getter blkio_device_write_bps : Array(JSON::Any)?
+      @[JSON::Field(key: "BlkioDeviceReadIOps")]
+      getter blkio_device_read_iops : Array(JSON::Any)?
+      @[JSON::Field(key: "BlkioDeviceWriteIOps")]
+      getter blkio_device_write_iops : Array(JSON::Any)?
+      @[JSON::Field(key: "ContainerIDFile")]
+      getter container_id_file : String
+      @[JSON::Field(key: "CpusetCpus")]
+      getter cpuset_cpus : String
+      @[JSON::Field(key: "CpusetMems")]
+      getter cpuset_mems : String
+      @[JSON::Field(key: "CpuPercent")]
+      getter cpu_percent : Int32
+      @[JSON::Field(key: "CpuShares")]
+      getter cpu_shares : Int32
+      @[JSON::Field(key: "CpuPeriod")]
+      getter cpu_period : Int32
+      @[JSON::Field(key: "CpuRealtimePeriod")]
+      getter cpu_realtime_period : Int32
+      @[JSON::Field(key: "CpuRealtimeRuntime")]
+      getter cpu_runtime_period : Int32
+      @[JSON::Field(key: "Devices")]
+      getter devices : Array(JSON::Any)?
+      @[JSON::Field(key: "IpcMode")]
+      getter ipc_mode : String
+      @[JSON::Field(key: "LxcConf")]
+      getter lxc_conf : Array(JSON::Any)?
+      @[JSON::Field(key: "Memory")]
+      getter memory : Int32
+      @[JSON::Field(key: "MemorySwap")]
+      getter memory_swap : Int32
+      @[JSON::Field(key: "MemoryReservation")]
+      getter memory_reservation : Int32
+      @[JSON::Field(key: "KernelMemory")]
+      getter kernel_memory : Int32
+      @[JSON::Field(key: "OomKillDisable")]
+      getter oom_kill_disable : Bool
+      @[JSON::Field(key: "OomScoreAdj")]
+      getter joom_score_adj : Int32
+      @[JSON::Field(key: "NetworkMode")]
+      getter network_mode : String
+      @[JSON::Field(key: "PidMode")]
+      getter pid_mode : String
+      @[JSON::Field(key: "PortBindings")]
+      getter port_bindings : JSON::Any?
+      @[JSON::Field(key: "Privileged")]
+      getter privileged : Bool
+      @[JSON::Field(key: "ReadonlyRootfs")]
+      getter readonly_rootfs : Bool
+      @[JSON::Field(key: "PublishAllPorts")]
+      getter publish_all_ports : Bool
+      @[JSON::Field(key: "RestartPolicy")]
+      getter restart_policy : JSON::Any?
+      @[JSON::Field(key: "LogConfig")]
+      getter log_config : JSON::Any?
+      @[JSON::Field(key: "Sysctls")]
+      getter sysctls : JSON::Any?
+      @[JSON::Field(key: "Ulimits")]
+      getter ulimits : Array(JSON::Any)?
+      @[JSON::Field(key: "VolumeDriver")]
+      getter volume_driver : String
+      @[JSON::Field(key: "ShmSize")]
+      getter shm_size : Int32
+    end
 
-  struct Mount
-    JSON.mapping({
-      name:        {setter: false, key: "Name", type: String?},
-      source:      {setter: false, key: "Source", type: String},
-      destination: {setter: false, key: "Destination", type: String},
-      driver:      {setter: false, key: "Driver", type: String?},
-      mode:        {setter: false, key: "Mode", type: String},
-      rw:          {setter: false, key: "RW", type: Bool},
-      propogation: {setter: false, key: "Propagation", type: String},
-    })
+    struct NetworkSettings < Response
+      @[JSON::Field(key: "Bridge")]
+      getter bridge : String
+      @[JSON::Field(key: "SandboxID")]
+      getter sandbox_id : String
+      @[JSON::Field(key: "HairpinMode")]
+      getter hairpin_mode : Bool
+      @[JSON::Field(key: "LinkLocalIPv6Address")]
+      getter link_local_ipv6_address : String
+      @[JSON::Field(key: "LinkLocalIPv6PrefixLen")]
+      getter link_local_ipv6_prefix_len : Int32
+      @[JSON::Field(key: "SandboxKey")]
+      getter sandbox_key : String
+      @[JSON::Field(key: "EndpointID")]
+      getter endpoint_id : String
+      @[JSON::Field(key: "Gateway")]
+      getter gateway : String
+      @[JSON::Field(key: "GlobalIPv6Address")]
+      getter global_ipv6_address : String
+      @[JSON::Field(key: "GlobalIPv6PrefixLen")]
+      getter global_ipv6_prefix_len : Int32
+      @[JSON::Field(key: "IPAddress")]
+      getter ip_address : String
+      @[JSON::Field(key: "IPPrefixLen")]
+      getter ip_prefix_len : Int32
+      @[JSON::Field(key: "IPv6Gateway")]
+      getter ipv6_gatway : String
+      @[JSON::Field(key: "MacAddress")]
+      getter mac_address : String
+      @[JSON::Field(key: "Networks")]
+      getter networks : Hash(String, Network)
+
+      struct Network < Response
+        @[JSON::Field(key: "NetworkID")]
+        getter network_id : String
+        @[JSON::Field(key: "EndpointID")]
+        getter endpoint_id : String
+        @[JSON::Field(key: "Gateway")]
+        getter gateway : String
+        @[JSON::Field(key: "IPAddress")]
+        getter ip_address : String
+        @[JSON::Field(key: "IPPrefixLen")]
+        getter ip_prefix_len : Int32
+        @[JSON::Field(key: "IPv6Gateway")]
+        getter ipv6_gatway : String
+        @[JSON::Field(key: "GlobalIPv6Address")]
+        getter global_ipv6_address : String
+        @[JSON::Field(key: "GlobalIPv6PrefixLen")]
+        getter global_ipv6_prefix_len : Int32
+        @[JSON::Field(key: "MacAddress")]
+        getter mac_address : String
+      end
+    end
+
+    struct State < Response
+      @[JSON::Field(key: "Error")]
+      getter error : String
+      @[JSON::Field(key: "ExitCode")]
+      getter exit_code : Int32
+      @[JSON::Field(key: "FinishedAt")]
+      getter finished_at : Time
+      @[JSON::Field(key: "OOMKilled")]
+      getter oom_killed : Bool
+      @[JSON::Field(key: "Dead")]
+      getter dead : Bool
+      @[JSON::Field(key: "Paused")]
+      getter paused : Bool
+      @[JSON::Field(key: "Pid")]
+      getter pid : Int32
+      @[JSON::Field(key: "Restarting")]
+      getter restarting : Bool
+      @[JSON::Field(key: "Running")]
+      getter running : Bool
+      @[JSON::Field(key: "StartedAt")]
+      getter started_at : Time
+      @[JSON::Field(key: "Status")]
+      getter status : String
+    end
+
+    struct Mount < Response
+      @[JSON::Field(key: "Name")]
+      getter name : String?
+      @[JSON::Field(key: "Source")]
+      getter source : String
+      @[JSON::Field(key: "Destination")]
+      getter destination : String
+      @[JSON::Field(key: "Driver")]
+      getter driver : String?
+      @[JSON::Field(key: "Mode")]
+      getter mode : String
+      @[JSON::Field(key: "RW")]
+      getter rw : Bool
+      @[JSON::Field(key: "Propagation")]
+      getter propogation : String
+    end
   end
 end
