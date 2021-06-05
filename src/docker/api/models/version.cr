@@ -1,16 +1,26 @@
-require "json"
+require "./response"
 
-struct Docker::Api::Models::Version
-  JSON.mapping({
-    version:         {setter: false, key: "Version", type: String},
-    os:              {setter: false, key: "Os", type: String},
-    kernel_version:  {setter: false, key: "KernelVersion", type: String},
-    go_version:      {setter: false, key: "GoVersion", type: String},
-    git_commit:      {setter: false, key: "GitCommit", type: String},
-    arch:            {setter: false, key: "Arch", type: String},
-    api_version:     {setter: false, key: "ApiVersion", type: String},
-    min_api_version: {setter: false, key: "MinAPIVersion", type: String},
-    build_time:      {setter: false, key: "BuildTime", type: Time},
-    experimental:    {setter: false, key: "Experimental", type: Bool},
-  })
+module Docker::Api::Models
+  struct Version < Response
+    @[JSON::Field(key: "Version")]
+    getter version : String
+    @[JSON::Field(key: "Os")]
+    getter os : String
+    @[JSON::Field(key: "KernelVersion")]
+    getter kernel_version : String
+    @[JSON::Field(key: "GoVersion")]
+    getter go_version : String
+    @[JSON::Field(key: "GitCommit")]
+    getter git_commit : String
+    @[JSON::Field(key: "Arch")]
+    getter arch : String
+    @[JSON::Field(key: "ApiVersion")]
+    getter api_version : String
+    @[JSON::Field(key: "MinAPIVersion")]
+    getter min_api_version : String
+    @[JSON::Field(key: "BuildTime")]
+    getter build_time : Time
+    @[JSON::Field(key: "Experimental")]
+    getter experimental : Bool
+  end
 end

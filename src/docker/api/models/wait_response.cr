@@ -1,14 +1,15 @@
-require "json"
+require "./response"
 
-struct Docker::Api::Models::WaitResponse
-  JSON.mapping({
-    status_code: {setter: false, key: "StatusCode", type: Int32},
-    error:       {setter: false, key: "Error", type: Error},
-  })
+module Docker::Api::Models
+  struct WaitResponse < Response
+    @[JSON::Field(key: "StatusCode")]
+    getter status_code : Int32
+    @[JSON::Field(key: "Error")]
+    getter error : Error
 
-  struct Error
-    JSON.mapping({
-      message: {setter: false, key: "Message", type: String},
-    })
+    struct Error < Response
+      @[JSON::Field(key: "Message")]
+      getter message : String
+    end
   end
 end

@@ -1,8 +1,10 @@
-require "json"
+require "./response"
 
-struct Docker::Api::Models::CreateContainerResponse
-  JSON.mapping({
-    id:       {setter: false, key: "Id", type: String},
-    warnings: {setter: false, key: "Warnings", type: Array(String)?},
-  })
+module Docker::Api::Models
+  struct CreateContainerResponse < Response
+    @[JSON::Field(key: "Id")]
+    getter id : String
+    @[JSON::Field(key: "Warnings")]
+    getter warnings : Array(String)?
+  end
 end

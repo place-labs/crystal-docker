@@ -1,48 +1,83 @@
-require "json"
+require "./response"
 
-struct Docker::Api::Models::Image
-  JSON.mapping({
-    id:               {setter: false, key: "Id", type: String},
-    container:        {setter: false, key: "Container", type: String},
-    comment:          {setter: false, key: "Comment", type: String},
-    os:               {setter: false, key: "Os", type: String},
-    architecture:     {setter: false, key: "Architecture", type: String},
-    parent:           {setter: false, key: "Parent", type: String},
-    container_config: {setter: false, key: "ContainerConfig", type: Config},
-    docker_version:   {setter: false, key: "DockerVersion", type: String},
-    virtual_size:     {setter: false, key: "VirtualSize", type: Int32},
-    size:             {setter: false, key: "Size", type: Int32},
-    author:           {setter: false, key: "Author", type: String},
-    created:          {setter: false, key: "Created", type: Time},
-    graph_driver:     {setter: false, key: "GraphDriver", type: JSON::Any},
-    repo_digests:     {setter: false, key: "RepoDigests", type: Array(String)},
-    repo_tags:        {setter: false, key: "RepoTags", type: Array(String)?},
-    config:           {setter: false, key: "Config", type: Config},
-    root_fs:          {setter: false, key: "RootFS", type: JSON::Any},
-  })
+module Docker::Api::Models
+  struct Image < Response
+    @[JSON::Field(key: "Id")]
+    getter id : String
+    @[JSON::Field(key: "Container")]
+    getter container : String
+    @[JSON::Field(key: "Comment")]
+    getter comment : String
+    @[JSON::Field(key: "Os")]
+    getter os : String
+    @[JSON::Field(key: "Architecture")]
+    getter architecture : String
+    @[JSON::Field(key: "Parent")]
+    getter parent : String
+    @[JSON::Field(key: "ContainerConfig")]
+    getter container_config : Config
+    @[JSON::Field(key: "DockerVersion")]
+    getter docker_version : String
+    @[JSON::Field(key: "VirtualSize")]
+    getter virtual_size : Int32
+    @[JSON::Field(key: "Size")]
+    getter size : Int32
+    @[JSON::Field(key: "Author")]
+    getter author : String
+    @[JSON::Field(key: "Created")]
+    getter created : Time
+    @[JSON::Field(key: "GraphDriver")]
+    getter graph_driver : JSON::Any
+    @[JSON::Field(key: "RepoDigests")]
+    getter repo_digests : Array(String)
+    @[JSON::Field(key: "RepoTags")]
+    getter repo_tags : Array(String)?
+    @[JSON::Field(key: "Config")]
+    getter config : Config
+    @[JSON::Field(key: "RootFS")]
+    getter root_fs : JSON::Any
 
-  struct Config
-    JSON.mapping({
-      hostname:      {setter: false, key: "Hostname", type: String},
-      domainname:    {setter: false, key: "Domainname", type: String},
-      user:          {setter: false, key: "User", type: String},
-      attach_stdin:  {setter: false, key: "AttachStdin", type: Bool},
-      attach_stdout: {setter: false, key: "AttachStdout", type: Bool},
-      attach_stderr: {setter: false, key: "AttachStderr", type: Bool},
-      exposed_ports: {setter: false, key: "ExposedPorts", type: Hash(String, Hash(String, String))?},
-      tty:           {setter: false, key: "Tty", type: Bool},
-      open_stdin:    {setter: false, key: "OpenStdin", type: Bool},
-      stdin_once:    {setter: false, key: "StdinOnce", type: Bool},
-      env:           {setter: false, key: "Env", type: Array(String)},
-      cmd:           {setter: false, key: "Cmd", type: Array(String)?},
-      healthcheck:   {setter: false, key: "Healthcheck", type: JSON::Any?},
-      args_escaped:  {setter: false, key: "ArgsEscaped", type: Bool?},
-      image:         {setter: false, key: "Image", type: String},
-      volumes:       {setter: false, key: "Volumes", type: Hash(String, Hash(String, String))?},
-      working_dir:   {setter: false, key: "WorkingDir", type: String},
-      entrypoint:    {setter: false, key: "Entrypoint", type: Array(String)?},
-      on_build:      {setter: false, key: "OnBuild", type: Array(String)?},
-      labels:        {setter: false, key: "Labels", type: Hash(String, String)?},
-    })
+    struct Config < Response
+      @[JSON::Field(key: "Hostname")]
+      getter hostname : String
+      @[JSON::Field(key: "Domainname")]
+      getter domainname : String
+      @[JSON::Field(key: "User")]
+      getter user : String
+      @[JSON::Field(key: "AttachStdin")]
+      getter attach_stdin : Bool
+      @[JSON::Field(key: "AttachStdout")]
+      getter attach_stdout : Bool
+      @[JSON::Field(key: "AttachStderr")]
+      getter attach_stderr : Bool
+      @[JSON::Field(key: "ExposedPorts")]
+      getter exposed_ports : Hash(String, Hash(String, String))?
+      @[JSON::Field(key: "Tty")]
+      getter tty : Bool
+      @[JSON::Field(key: "OpenStdin")]
+      getter open_stdin : Bool
+      @[JSON::Field(key: "StdinOnce")]
+      getter stdin_once : Bool
+      @[JSON::Field(key: "Env")]
+      getter env : Array(String)
+      @[JSON::Field(key: "Cmd")]
+      getter cmd : Array(String)?
+      @[JSON::Field(key: "Healthcheck")]
+      getter healthcheck : JSON::Any?
+      @[JSON::Field(key: "ArgsEscaped")]
+      getter args_escaped : Bool?
+      @[JSON::Field(key: "Image")]
+      getter image : String
+      @[JSON::Field(key: "Volumes")]
+      getter volumes : Hash(String, Hash(String, String))?
+      @[JSON::Field(key: "WorkingDir")]
+      getter working_dir : String
+      @[JSON::Field(key: "Entrypoint")]
+      getter entrypoint : Array(String)?
+      @[JSON::Field(key: "OnBuild")]
+      getter on_build : Array(String)?
+      @[JSON::Field(key: "Labels")]
+      getter labels : Hash(String, String)?
+    end
   end
 end
