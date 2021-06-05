@@ -1,7 +1,7 @@
 # crystal-docker
 
 [![GitHub release](https://img.shields.io/github/release/aca-labs/crystal-docker.svg)](https://github.com/aca-labs/crystal-docker/releases)
-[![Build Status](https://travis-ci.com/aca-labs/crystal-docker.svg?branch=master)](https://travis-ci.com/aca-labs/crystal-docker)
+[![CI](https://github.com/aca-labs/crystal-docker/actions/workflows/ci.yml/badge.svg)](https://github.com/aca-labs/crystal-docker/actions/workflows/ci.yml)
 [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://aca-labs.github.io/crystal-docker/)
 
 Docker Engine API wrapper. Provides typed interaction with the [Docker Engine API](https://docs.docker.com/engine/api/latest/).
