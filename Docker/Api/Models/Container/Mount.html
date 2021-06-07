@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.36.1">
+<meta name="crystal_docs.project_version" content="0.2.0">
+<meta name="crystal_docs.project_name" content="docker">
+
+
+
+<link href="../../../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../../../js/doc.js"></script>
+
+  <meta name="repository-name" content="docker">
+  <title>Docker::Api::Models::Container::Mount - docker 0.2.0</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../../../index.html">
+          docker
+        </a>
+      </h1>
+
+      <span class="project-version">
+        0.2.0
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="docker/Docker" data-name="docker">
+      <a href="../../../../Docker.html">Docker</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="docker/Docker/Api" data-name="docker::api">
+      <a href="../../../../Docker/Api.html">Api</a>
+      
+        <ul>
+  
+  <li class=" " data-id="docker/Docker/Api/ApiClient" data-name="docker::api::apiclient">
+      <a href="../../../../Docker/Api/ApiClient.html">ApiClient</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Containers" data-name="docker::api::containers">
+      <a href="../../../../Docker/Api/Containers.html">Containers</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Daemon" data-name="docker::api::daemon">
+      <a href="../../../../Docker/Api/Daemon.html">Daemon</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Images" data-name="docker::api::images">
+      <a href="../../../../Docker/Api/Images.html">Images</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="docker/Docker/Api/Models" data-name="docker::api::models">
+      <a href="../../../../Docker/Api/Models.html">Models</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="docker/Docker/Api/Models/BuildInfo" data-name="docker::api::models::buildinfo">
+      <a href="../../../../Docker/Api/Models/BuildInfo.html">BuildInfo</a>
+      
+        <ul>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/BuildInfo/ErrorDetail" data-name="docker::api::models::buildinfo::errordetail">
+      <a href="../../../../Docker/Api/Models/BuildInfo/ErrorDetail.html">ErrorDetail</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/BuildInfo/ProgressDetail" data-name="docker::api::models::buildinfo::progressdetail">
+      <a href="../../../../Docker/Api/Models/BuildInfo/ProgressDetail.html">ProgressDetail</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="docker/Docker/Api/Models/Container" data-name="docker::api::models::container">
+      <a href="../../../../Docker/Api/Models/Container.html">Container</a>
+      
+        <ul>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/Container/Config" data-name="docker::api::models::container::config">
+      <a href="../../../../Docker/Api/Models/Container/Config.html">Config</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/Container/HostConfig" data-name="docker::api::models::container::hostconfig">
+      <a href="../../../../Docker/Api/Models/Container/HostConfig.html">HostConfig</a>
+      
+    </li>
+  
+  <li class=" current" data-id="docker/Docker/Api/Models/Container/Mount" data-name="docker::api::models::container::mount">
+      <a href="../../../../Docker/Api/Models/Container/Mount.html">Mount</a>
+      
+    </li>
+  
+  <li class="parent " data-id="docker/Docker/Api/Models/Container/NetworkSettings" data-name="docker::api::models::container::networksettings">
+      <a href="../../../../Docker/Api/Models/Container/NetworkSettings.html">NetworkSettings</a>
+      
+        <ul>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/Container/NetworkSettings/Network" data-name="docker::api::models::container::networksettings::network">
+      <a href="../../../../Docker/Api/Models/Container/NetworkSettings/Network.html">Network</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/Container/State" data-name="docker::api::models::container::state">
+      <a href="../../../../Docker/Api/Models/Container/State.html">State</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="docker/Docker/Api/Models/ContainerSummary" data-name="docker::api::models::containersummary">
+      <a href="../../../../Docker/Api/Models/ContainerSummary.html">ContainerSummary</a>
+      
+        <ul>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/ContainerSummary/HostConfig" data-name="docker::api::models::containersummary::hostconfig">
+      <a href="../../../../Docker/Api/Models/ContainerSummary/HostConfig.html">HostConfig</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/ContainerSummary/NetworkSettings" data-name="docker::api::models::containersummary::networksettings">
+      <a href="../../../../Docker/Api/Models/ContainerSummary/NetworkSettings.html">NetworkSettings</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/ContainerSummary/PortBinding" data-name="docker::api::models::containersummary::portbinding">
+      <a href="../../../../Docker/Api/Models/ContainerSummary/PortBinding.html">PortBinding</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/CreateContainerResponse" data-name="docker::api::models::createcontainerresponse">
+      <a href="../../../../Docker/Api/Models/CreateContainerResponse.html">CreateContainerResponse</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/ErrorResponse" data-name="docker::api::models::errorresponse">
+      <a href="../../../../Docker/Api/Models/ErrorResponse.html">ErrorResponse</a>
+      
+    </li>
+  
+  <li class="parent " data-id="docker/Docker/Api/Models/Image" data-name="docker::api::models::image">
+      <a href="../../../../Docker/Api/Models/Image.html">Image</a>
+      
+        <ul>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/Image/Config" data-name="docker::api::models::image::config">
+      <a href="../../../../Docker/Api/Models/Image/Config.html">Config</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/ImageSummary" data-name="docker::api::models::imagesummary">
+      <a href="../../../../Docker/Api/Models/ImageSummary.html">ImageSummary</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/Version" data-name="docker::api::models::version">
+      <a href="../../../../Docker/Api/Models/Version.html">Version</a>
+      
+    </li>
+  
+  <li class="parent " data-id="docker/Docker/Api/Models/WaitResponse" data-name="docker::api::models::waitresponse">
+      <a href="../../../../Docker/Api/Models/WaitResponse.html">WaitResponse</a>
+      
+        <ul>
+  
+  <li class=" " data-id="docker/Docker/Api/Models/WaitResponse/Error" data-name="docker::api::models::waitresponse::error">
+      <a href="../../../../Docker/Api/Models/WaitResponse/Error.html">Error</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/ApiClientWrapper" data-name="docker::apiclientwrapper">
+      <a href="../../../../Docker/ApiClientWrapper.html">ApiClientWrapper</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/ApiError" data-name="docker::apierror">
+      <a href="../../../../Docker/ApiError.html">ApiError</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/BuildError" data-name="docker::builderror">
+      <a href="../../../../Docker/BuildError.html">BuildError</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Client" data-name="docker::client">
+      <a href="../../../../Docker/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Container" data-name="docker::container">
+      <a href="../../../../Docker/Container.html">Container</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Containers" data-name="docker::containers">
+      <a href="../../../../Docker/Containers.html">Containers</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/DockerException" data-name="docker::dockerexception">
+      <a href="../../../../Docker/DockerException.html">DockerException</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Image" data-name="docker::image">
+      <a href="../../../../Docker/Image.html">Image</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Docker/Images" data-name="docker::images">
+      <a href="../../../../Docker/Images.html">Images</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="docker/Hash" data-name="hash(k, v)">
+      <a href="../../../../Hash.html">Hash</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/NamedTuple" data-name="namedtuple(**t)">
+      <a href="../../../../NamedTuple.html">NamedTuple</a>
+      
+    </li>
+  
+  <li class=" " data-id="docker/Tools" data-name="tools">
+      <a href="../../../../Tools.html">Tools</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">struct</span> Docker::Api::Models::Container::Mount
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../../../Docker/Api/Models/Container/Mount.html">Docker::Api::Models::Container::Mount</a></li><li class="superclass">Docker::Api::Models::Response</li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      docker/api/models/container.cr
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(pull:JSON::PullParser)-class-method" class="signature"><strong>.new</strong>(pull : JSON::PullParser)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#destination:String-instance-method" class="signature"><strong>#destination</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#driver:String?-instance-method" class="signature"><strong>#driver</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mode:String-instance-method" class="signature"><strong>#mode</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name:String?-instance-method" class="signature"><strong>#name</strong> : String?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#propogation:String-instance-method" class="signature"><strong>#propogation</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rw:Bool-instance-method" class="signature"><strong>#rw</strong> : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#source:String-instance-method" class="signature"><strong>#source</strong> : String</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+  <h3>Constructor methods inherited from struct <code>Docker::Api::Models::Response</code></h3>
+  
+  
+    <a href="../../../../Docker/Api/Models/Response.html#new(pull:JSON::PullParser)-class-method" class="tooltip">
+      <span>new(pull : JSON::PullParser)</span>
+    new</a>
+    
+  
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(pull:JSON::PullParser)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(pull : JSON::PullParser)
+
+        <a class="method-permalink" href="#new(pull:JSON::PullParser)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="destination:String-instance-method">
+      <div class="signature">
+        
+        def <strong>destination</strong> : String
+
+        <a class="method-permalink" href="#destination:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="driver:String?-instance-method">
+      <div class="signature">
+        
+        def <strong>driver</strong> : String?
+
+        <a class="method-permalink" href="#driver:String?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mode:String-instance-method">
+      <div class="signature">
+        
+        def <strong>mode</strong> : String
+
+        <a class="method-permalink" href="#mode:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name:String?-instance-method">
+      <div class="signature">
+        
+        def <strong>name</strong> : String?
+
+        <a class="method-permalink" href="#name:String?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="propogation:String-instance-method">
+      <div class="signature">
+        
+        def <strong>propogation</strong> : String
+
+        <a class="method-permalink" href="#propogation:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rw:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>rw</strong> : Bool
+
+        <a class="method-permalink" href="#rw:Bool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="source:String-instance-method">
+      <div class="signature">
+        
+        def <strong>source</strong> : String
+
+        <a class="method-permalink" href="#source:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
